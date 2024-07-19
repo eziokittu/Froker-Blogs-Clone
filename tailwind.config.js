@@ -6,17 +6,16 @@ module.exports = {
   theme: {
     extend: {
       screens: {
+        'sm': '780px',
         'md': '900px',
         'lg': '960px',
         'xl': '1100px'
       },
       fontFamily: {
-        'RubikDoodleShadow': ['Rubik Doodle Shadow', 'sans-serif'],
-        'Kolnia': ['Kalnia', 'serif'],
-        'Merriweather': ['Merriweather', 'serif'],
+        'Roboto' : ["Roboto", 'sans-serif']
       },
       colors: {
-        "froker-orange": "#f16332",
+        "froker-orange": "#f76f32",
         "froker-gray": "#666666",
       }
     },
