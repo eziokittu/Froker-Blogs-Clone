@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Navbarbutton = ({ name, LinkTo }) => {
+const Navbarbutton = ({ name, LinkTo, toggleMenu }) => {
   return (
     <div className='relative'>
       <Link
         className='group lg:flex'
         to={LinkTo}
+        onClick={toggleMenu}
       >
         <div className='relative '>
           {/* Text */}

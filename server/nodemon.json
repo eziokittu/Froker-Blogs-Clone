@@ -1,0 +1,10 @@
+{
+  "env": {
+    "DB_PORT": 5000,
+    "DB_NAME": "test_froker_blogs",
+    "JWT_KEY": "supersecret_dont_share",
+    
+    "DB_USER_DEFAULT_IMAGE": "uploads/images/blog_0.png",
+    "DB_USER_DEFAULT_AUTHOR": "Bodhisatta Bhattacharjee"
+  }
+}

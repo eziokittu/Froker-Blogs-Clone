@@ -45,13 +45,13 @@ const Navbar = () => {
         >
 
           {/* Home Page */}
-          <Navbarbutton name={'Home'} LinkTo={'/'}/>
+          <Navbarbutton name={'Home'} LinkTo={'/'} toggleMenu={toggleMenu} />
 
           {/* Blogs Page */}
-          <Navbarbutton name={'Blogs'} LinkTo={'/blogs'}/>
+          <Navbarbutton name={'Blogs'} LinkTo={'/blogs'} toggleMenu={toggleMenu} />
 
           {/* Discover Froker Page */}
-          <Navbarbutton name={'Discover Froker'} LinkTo={'/discover'}/>
+          <Navbarbutton name={'Discover Froker'} LinkTo={'/discover'} toggleMenu={toggleMenu} />
 
         </div>
       </div>
@@ -62,13 +62,13 @@ const Navbar = () => {
       >
         <div className="flex flex-col gap-2 mx-auto text-center">
           {/* Home Page */}
-          <Navbarbutton name={'Home'} LinkTo={'/'}/>
+          <Navbarbutton name={'Home'} LinkTo={'/'} toggleMenu={toggleMenu} />
 
           {/* Blogs Page */}
-          <Navbarbutton name={'Blogs'} LinkTo={'/blogs'}/>
+          <Navbarbutton name={'Blogs'} LinkTo={'/blogs'} toggleMenu={toggleMenu} />
 
           {/* Discover Froker Page */}
-          <Navbarbutton name={'Discover Froker'} LinkTo={'/discover'}/>
+          <Navbarbutton name={'Discover Froker'} LinkTo={'/discover'} toggleMenu={toggleMenu} />
         </div>
       </div>
     </div>

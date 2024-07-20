@@ -1,4 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Scrollbar modification */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+.responsive-heading {
+  /* Continuous font size change between 320px and 1100px */
+  font-size: calc(0.875rem + (30 * (100vw - 320px) / 780));
+
+  /* Maximum font size for large screens (1100px and above) */
+  @media (min-width: 1100px) {
+    font-size: 3rem; /* Tailwind's text-5xl equivalent */
+  }
+}

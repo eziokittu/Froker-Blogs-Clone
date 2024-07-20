@@ -14,7 +14,7 @@ const App = () => {
   usePleaseStay({ titles: ["Don't leave us", 'We are still here'] });
 
   return (
-    <div>
+    <div className=''>
       <BrowserRouter>
         <Navbar />
         <Routes>

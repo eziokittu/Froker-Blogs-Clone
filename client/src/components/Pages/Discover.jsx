@@ -2,7 +2,7 @@ import React from 'react'
 
 const Discover = () => {
   return (
-    <div>Discover Page</div>
+    <div className='min-h-[700px]'>Discover Page</div>
   )
 }
 

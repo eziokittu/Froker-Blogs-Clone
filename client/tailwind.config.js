@@ -12,7 +12,8 @@ module.exports = {
         'xl': '1100px'
       },
       fontFamily: {
-        'Roboto' : ["Roboto", 'sans-serif']
+        'Roboto' : ["Roboto", 'sans-serif'],
+        'Raleway' : ["Raleway", 'sans-serif']
       },
       colors: {
         "froker-orange": "#f76f32",
@@ -21,6 +22,6 @@ module.exports = {
     },
   },
   plugins: [
-    
+
   ],
 }
