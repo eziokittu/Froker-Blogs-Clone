@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './components/Pages/Home';
 import Blogs from './components/Pages/Blogs';
+import Blog from './components/Pages/Blog';
 import Discover from './components/Pages/Discover';
 import ErrorPage from './components/Pages/ErrorPage';
 
@@ -20,8 +21,9 @@ const App = () => {
         <Routes>
           <Route path='*' element={<ErrorPage />} />
           <Route exact path='/' element={<Home />} />
-          <Route exact path='/Blogs' element={<Blogs />} />
-          <Route exact path='/Discover' element={<Discover />} />
+          <Route exact path='/blogs' element={<Blogs />} />
+          <Route exact path='/blog/:blogNumber' element={<Blog />} />
+          <Route exact path='/discover' element={<Discover />} />
         </Routes>
         <Footer />
       </BrowserRouter>

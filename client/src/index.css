@@ -18,3 +18,8 @@
     font-size: 3rem; /* Tailwind's text-5xl equivalent */
   }
 }
+
+.responsive-title {
+  /* Continuous font size change between 320px and 1100px */
+  font-size: calc(0.875rem + (10 * (100vw - 320px) / 780));
+}

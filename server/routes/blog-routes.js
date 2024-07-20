@@ -7,6 +7,7 @@ const router = express.Router();
 
 // GET
 router.get('/get', blogController.getAllBlogs);
+router.get('/get/blog/:blogNumber', blogController.getBlogByNumber);
 
 // POST
 router.post(

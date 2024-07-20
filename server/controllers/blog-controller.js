@@ -1,23 +1,56 @@
 const { validationResult } = require('express-validator');
 
-const fs = require('fs');
 const HttpError = require('../models/http-error');
 const Blog = require('../models/blog');
 
 // GET
 const getAllBlogs = async (req, res, next) => {
-  let allBlogs = await Blog.find();
+  const page = parseInt(req.query.page) || 0;
+  const blogsPerPage = parseInt(process.env.DB_COUNT_BLOGS_PER_PAGE) || 9;
+
   try {
-    allBlogs = await Blog.find();
-    if (!allBlogs) {
-      return res.json({ok:-1, message:'No blogs found'});
+    // Find the blogs with pagination
+    const allBlogs = await Blog
+      .find()
+      .skip(page * blogsPerPage)
+      .limit(blogsPerPage);
+
+    // Count the total number of blogs for pagination metadata
+    const totalBlogs = await Blog.countDocuments();
+
+    if (allBlogs.length === 0) {
+      return res.json({ ok: -1, message: 'No blogs found' });
+    }
+
+    // Return the paginated blogs along with pagination metadata
+    return res.json({
+      ok: 1,
+      blogs: allBlogs,
+      currentPage: page,
+      totalPages: Math.ceil(totalBlogs / blogsPerPage),
+      totalBlogs: totalBlogs,
+      message: "Successfully fetched all blogs!"
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ ok: -1, message: 'Error finding blogs' });
+  }
+};
+
+const getBlogByNumber = async(req, res, next) => {
+  let bn = req.params['blogNumber'];
+  let existingBlog;
+  try {
+    existingBlog = await Blog.findOne({blogNumber: bn});
+    if (!existingBlog) {
+      return res.json({ok:-1, message:'No blog found with this blogNumber!'});
     }
   } catch (error) {
     // Log the error but do not stop processing the rest of the user IDs
-    return res.json({ok:-1, message:'Error finding blogs:'});
+    return res.json({ok:-1, message:'Error finding blog'});
   }
 
-  return res.json({ok:1, message: "Successfully fetched all blogs!" });
+  return res.json({ok:1, blog: existingBlog, message: "Successfully fetched existing blog!" });
 }
 
 
@@ -63,13 +96,12 @@ const AddBlog = async (req, res, next) => {
 
 module.exports = {
   getAllBlogs,
+  getBlogByNumber,
   AddBlog
-  // postEmployeesForMonth,
-  // patchEmployeesForMonth,
-  // deleteEmployeesForMonth,
 };
 
 // {
+//   "blogNumber": "1",
 //   "title": "example blog title",
 //   "author": "Harry Potter",
 //   "readTime": 5,
