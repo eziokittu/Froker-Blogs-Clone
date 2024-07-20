@@ -8,6 +8,7 @@ import Blogs from './components/Pages/Blogs';
 import Blog from './components/Pages/Blog';
 import Discover from './components/Pages/Discover';
 import ErrorPage from './components/Pages/ErrorPage';
+import AboutUs from './components/Pages/AboutUs';
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
           <Route path='*' element={<ErrorPage />} />
           <Route exact path='/' element={<Home />} />
           <Route exact path='/blogs' element={<Blogs />} />
+          <Route exact path='/about-us' element={<AboutUs />} />
           <Route exact path='/blog/:blogNumber' element={<Blog />} />
           <Route exact path='/discover' element={<Discover />} />
         </Routes>

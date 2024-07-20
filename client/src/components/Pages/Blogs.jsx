@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHttpClient } from '../Backend/http-hook';
 import MoreBlogs from '../Reusable/MoreBlogs';
+import Subscribe from '../Reusable/Subscribe';
 
 const Blogs = () => {
   const { sendRequest } = useHttpClient();
@@ -52,6 +53,12 @@ const Blogs = () => {
         {/* More Blogs */}
         <p className='text-5xl my-8'>Recent Posts</p>
         <MoreBlogs />
+
+        {/* Subscribe */}
+        <div>
+          <Subscribe />
+        </div>
+
       </div>
     </div>
   );

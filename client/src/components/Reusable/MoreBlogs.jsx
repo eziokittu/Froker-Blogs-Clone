@@ -1,44 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { useHttpClient } from '../Backend/http-hook';
-import ReactPaginate from "react-paginate";
+import ReactPaginate from 'react-paginate';
 import BlogCard from '../Reusable/BlogCard';
 
 const MoreBlogs = () => {
   const { sendRequest } = useHttpClient();
-  const blogsPerPage = parseInt(import.meta.env.VITE_APP_PAGECOUNT_BLOGS || 9, 10); // Ensure numerical value for pagination
+  const blogsPerPage = parseInt(import.meta.env.VITE_APP_PAGECOUNT_BLOGS || 9, 10);
 
-  const [loadedBlogs, setLoadedBlogs] = useState([]); // Initialize with empty array
+  const [loadedBlogs, setLoadedBlogs] = useState([]);
+  const [totalPages, setTotalPages] = useState(0); // State to hold the total number of pages
+  const [page, setPage] = useState(0);
 
-  // Pagination state and handling
-  const [currentPage, setCurrentPage] = useState(0);
-
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
+  const handlePageClick = ({ selected }) => {
+    setPage(selected);
   };
 
-  // Fetching blogs with pagination
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
         const responseData = await sendRequest(
-          `${import.meta.env.VITE_BACKEND_URL}/blogs/get?page=${currentPage}`
+          `${import.meta.env.VITE_BACKEND_URL}/blogs/get?page=${page}&limit=${blogsPerPage}`
         );
         if (responseData.ok === 1) {
-          setLoadedBlogs(responseData.blogs); // Use retrieved blogs data
+          setLoadedBlogs(responseData.blogs);
+          setTotalPages(Math.ceil(responseData.totalBlogs / blogsPerPage)); // Calculate total pages
         }
       } catch (err) {
-        console.error('Error fetching blogs:', err); // Use console.error for better logging
+        console.error('Error fetching blogs:', err);
       }
     };
 
     fetchBlogs();
-  }, [sendRequest, currentPage]);
+  }, [sendRequest, page]);
 
   return (
     <div className="min-h-[700px] flex flex-col font-Raleway">
       {/* Blogs */}
-      {loadedBlogs && ( // Check for loaded blogs before mapping
-        <div className='grid grid-cols-3 gap-x-5 gap-y-5'>
+      {loadedBlogs && (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-5 gap-y-5">
           {loadedBlogs.map((blog) => (
             <BlogCard key={blog.id} blogData={blog} />
           ))}
@@ -46,27 +45,37 @@ const MoreBlogs = () => {
       )}
 
       {/* Pagination */}
-      {loadedBlogs.totalBlogs > 0 && (
-        <div className='flex justify-center items-center'>
+      {totalPages > 0 && (
+        <div className="flex justify-center items-center my-24">
           <ReactPaginate
-            previousLabel={"previous"}
-            nextLabel={"next"}
-            breakLabel={"..."}
-            pageCount={pageCount}
+            previousLabel={'<'}
+            nextLabel={'>'}
+            breakLabel={'...'}
+            pageCount={totalPages}
             marginPagesDisplayed={2}
             pageRangeDisplayed={3}
-            onPageChange={(selected) => handlePageChange(selected.selected)}
-            containerClassName={"inline-flex -space-x-px text-sm justify-content-center items-center mt-4 mb-4"}
-            pageLinkClassName={"flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-blue-100 hover:text-blue-700 focus:bg-blue-100 focus:text-blue-700"}
-            previousLinkClassName={"flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-blue-100 hover:text-blue-700"}
-            nextClassName={"page-item"}
-            nextLinkClassName={"flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-blue-100 hover:text-blue-700"}
-            breakLinkClassName={"flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-blue-100 hover:text-blue-700 "}
+            onPageChange={handlePageClick}
+            containerClassName={
+              'inline-flex -space-x-px text-sm justify-content-center items-center gap-2'
+            }
+            pageLinkClassName={
+              'flex items-center justify-center text-gray-500 text-xl w-10 h-10 leading-tight text-black bg-white border border-gray-300 rounded-full hover:bg-gray-100 focus:bg-gray-200'
+            }
+            previousLinkClassName={
+              'flex items-center justify-center text-gray-500 text-xl w-10 h-10 leading-tight text-black bg-white border border-gray-300 rounded-full hover:bg-gray-100'
+            }
+            nextLinkClassName={
+              'flex items-center justify-center text-gray-500 text-xl w-10 h-10 leading-tight text-black bg-white border border-gray-300 rounded-full hover:bg-gray-100'
+            }
+            breakLinkClassName={
+              'flex items-center justify-center text-gray-500 text-xl w-10 h-10 leading-tight text-black bg-white border border-gray-300 rounded-full hover:bg-gray-100'
+            }
+            activeClassName="text-gray-700"
           />
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default MoreBlogs
+export default MoreBlogs;

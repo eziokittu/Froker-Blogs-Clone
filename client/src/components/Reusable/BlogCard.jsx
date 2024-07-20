@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 const BlogCard = ({ blogData }) => {
   const navigate = useNavigate();
@@ -27,7 +27,10 @@ const BlogCard = ({ blogData }) => {
   return (
     <div
       className='flex flex-col cursor-pointer'
-      onClick={() => { navigate(`/blog/${blogData.blogNumber}`) }}
+      onClick={() => { 
+        navigate(`/blog/${blogData.blogNumber}`);
+        window.location.reload(false);
+      }}
     >
 
       {/* Blog Image */}

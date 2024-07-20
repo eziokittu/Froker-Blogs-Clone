@@ -9,7 +9,8 @@ module.exports = {
         'sm': '780px',
         'md': '900px',
         'lg': '960px',
-        'xl': '1100px'
+        'xl': '1100px',
+        '2xl': '1200px'
       },
       fontFamily: {
         'Roboto' : ["Roboto", 'sans-serif'],
